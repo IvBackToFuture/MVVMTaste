@@ -3,12 +3,12 @@ using MVVMTaste.Infrastructure.Commands.Base;
 
 namespace MVVMTaste.Infrastructure.Commands
 {
-    internal class LumbdaCommand : Command
+    internal class LambdaCommand : Command
     {
         private readonly Action<object> _Execute;
         private readonly Func<object, bool> _CanExecute;
 
-        public LumbdaCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
+        public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
         {
             _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
             _CanExecute = CanExecute;
