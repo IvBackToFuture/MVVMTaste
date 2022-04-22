@@ -15,6 +15,9 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
     <!--<Grid>
         --><!--<TextBox Margin="175"
                  Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
@@ -28,11 +31,12 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <!--<MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"/>-->
-                <MenuItem Header="Выход">
+                <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
+                <!--<MenuItem Header="Выход">
                     <MenuItem.Command>
                         <cmd:CloseApplicationCommand/>
                     </MenuItem.Command>
-                </MenuItem>
+                </MenuItem>-->
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
