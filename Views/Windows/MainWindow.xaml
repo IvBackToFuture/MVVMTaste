@@ -9,6 +9,9 @@
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding CloseApplicationCommand}"/>
+    </Window.InputBindings>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -60,7 +63,12 @@
                                RadiusY="7" Margin="5,7"/>
                     <Ellipse Grid.Column="1" Grid.Row="1" 
                              Fill="Red" Stroke="Blue"
-                             StrokeThickness="3"/>
+                             StrokeThickness="3">
+                        <Ellipse.InputBindings>
+                            <MouseBinding Command="{Binding CloseApplicationCommand}"
+                                          MouseAction="LeftDoubleClick"/>
+                        </Ellipse.InputBindings>
+                    </Ellipse>
                     <GridSplitter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                                   HorizontalAlignment="Right"
                                   Width="5"/>
