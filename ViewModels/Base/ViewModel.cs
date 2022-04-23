@@ -6,6 +6,8 @@ namespace MVVMTaste.ViewModels.Base
 {
     internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
+        #region RealizeINotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
@@ -21,10 +23,14 @@ namespace MVVMTaste.ViewModels.Base
             return true;
         }
 
+        #endregion
+
         //~ViewModel()
         //{
         //    Dispose(true);
         //}
+
+        #region RealizeIDisposable
 
         public void Dispose()
         {
@@ -38,5 +44,7 @@ namespace MVVMTaste.ViewModels.Base
             _Disposed = true;
             //освобождение управляемых ресурсов
         }
+
+        #endregion
     }
 }
