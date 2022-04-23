@@ -6,12 +6,27 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MVVMTaste.Infrastructure.Commands;
+using MVVMTaste.Models;
 using MVVMTaste.ViewModels.Base;
 
 namespace MVVMTaste.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region Тестовый набор данных для визуализации графиков
+
+        /// <summary>Тестовый набор данных для визуализации графиков</summary>
+        private IEnumerable<DataPoint> _TestDataPoint;
+
+        /// <summary>Тестовый набор данных для визуализации графиков</summary>
+        public IEnumerable<DataPoint> TestDataPoint
+        {
+            get => _TestDataPoint;
+            set => Set(ref _TestDataPoint, value);
+        }
+
+        #endregion
+
         #region Заголовок окна
 
         private string _Title = "Анализ статистики MVVMTaste";
@@ -70,6 +85,17 @@ namespace MVVMTaste.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
             #endregion
+
+            var data_points = new List<DataPoint>((int)(360 / 0.1));
+            for (var x = 0d; x <= 360; x += 0.1)
+            {
+                const double to_rad = Math.PI / 180;
+                var y = Math.Sin(x * to_rad);
+
+                data_points.Add(new DataPoint() { XValue = x, YValue = y });
+            }
+
+            TestDataPoint = data_points;
         }
     }
 }
