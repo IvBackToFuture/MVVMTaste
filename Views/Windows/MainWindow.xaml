@@ -122,12 +122,18 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Margin="0,3" Rows="1">
-                                <Button Content="Добавить" Margin="0,0,1.5,0" Command='{Binding CreateGroupCommand}'/>
-                                <Button Content="Удалить" Margin="1.5,0,0,0" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <UniformGrid.Resources>
+                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                        <Setter Property="Margin" Value="3,0"/>
+                                        <Setter Property="Padding" Value="3,5"/>
+                                        <Setter Property="Background" Value="White"/>
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command='{Binding CreateGroupCommand}'/>
+                                <Button Content="Удалить"  Style="{StaticResource ButtonStyle}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" 
-                                 SelectedIndex="0"
-                                 SelectedItem="{Binding SelectedGroup}">
+                                 SelectedItem="{Binding SelectedGroup}"><!--SelectedIndex="0" (Свойство выбора объекта по индексу)-->
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
