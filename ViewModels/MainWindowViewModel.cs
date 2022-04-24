@@ -17,7 +17,22 @@ namespace MVVMTaste.ViewModels
     {
         /*------------------------------------------------------------------------------*/
 
+        #region Коллекция Групп
+
         public ObservableCollection<Group> Groups { get; }
+
+        #endregion
+
+        #region Выбранная группа (для DataGrid)
+
+        private Group _SelectedGroup;
+        public Group SelectedGroup
+        {
+            get => _SelectedGroup;
+            set => Set(ref _SelectedGroup, value);
+        }
+
+        #endregion
 
         #region Индекс выбранного tabItem'a
 
@@ -123,6 +138,8 @@ namespace MVVMTaste.ViewModels
 
             #endregion
 
+            #region Генерация тестовых данных для графика
+
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
@@ -133,6 +150,10 @@ namespace MVVMTaste.ViewModels
             }
 
             TestDataPoint = data_points;
+
+            #endregion
+
+            #region Генерация тестовых данных для DataGrid
 
             var student_index = 1;
             var students = Enumerable.Range(1, 10).Select(i => new Student 
@@ -152,7 +173,7 @@ namespace MVVMTaste.ViewModels
 
             Groups = new ObservableCollection<Group>(groups);
 
-
+            #endregion
         }
 
         /*------------------------------------------------------------------------------*/
