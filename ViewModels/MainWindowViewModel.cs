@@ -142,6 +142,49 @@ namespace MVVMTaste.ViewModels
 
         #endregion
 
+        #region CreateGroupCommand
+
+        public ICommand CreateGroupCommand { get; }
+        private bool CanCreateGroupCommandExecute(object p) => true;
+        private void OnCreateGroupCommandExecuted(object p)
+        {
+            var group_max_index = Groups.Count > 0 ? Groups.Select(x => int.Parse(x.Name.Remove(0, 7))).Max() : 0;
+            var index = 1;
+            var new_group = new Group
+            {
+                Name = $"Группа {group_max_index + 1}",
+                Students = new ObservableCollection<Student>(
+                    Enumerable.Range(1,10).Select(
+                        x => new Student { 
+                            Surname = $"Surname {group_max_index * 10 + index}",
+                            Name = $"Name {group_max_index * 10 + index}",
+                            Patronymic = $"Patronymic {group_max_index * 10 + index++}",
+                            Rating = 0,
+                            Birthday = DateTime.Now
+                        }
+                    )
+                )
+            };
+            Groups.Add(new_group);
+        }
+
+        #endregion
+
+        #region DeleteGroupCommand
+
+        public ICommand DeleteGroupCommand { get; }
+        private bool CanDeleteGroupCommandExecute(object p) => p is Group group && Groups.Contains(group);
+        private void OnDeleteGroupCommandExecuted(object p)
+        {
+            if (!(p is Group group)) return;
+            var group_index = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (group_index < Groups.Count)
+                SelectedGroup = Groups[group_index];
+        }
+
+        #endregion
+
         #endregion
 
         /*------------------------------------------------------------------------------*/
@@ -152,6 +195,8 @@ namespace MVVMTaste.ViewModels
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
+            CreateGroupCommand = new LambdaCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
+            DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
 
             #endregion
 
