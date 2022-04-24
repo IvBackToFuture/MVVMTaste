@@ -13,6 +13,17 @@ namespace MVVMTaste.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region Индекс выбранного tabItem'a
+
+        private int _SelectedPageIndex;
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
+        }
+
+        #endregion
+
         #region Тестовый набор данных для визуализации графиков
 
         /// <summary>Тестовый набор данных для визуализации графиков</summary>
@@ -76,6 +87,21 @@ namespace MVVMTaste.ViewModels
 
         #endregion
 
+        #region
+
+        public ICommand ChangeTabIndexCommand { get; }
+        private bool CanChangeTabIndexCommandExecute(object d) => true;// _SelectedPageIndex >= 0;
+        private void OnChangeTabIndexCommandExecuted(object d)
+        {
+            if (d is null) return;
+            int j = Convert.ToInt32(d);
+            if (j == -1 && SelectedPageIndex == 0) return;
+            if (j == 1 && SelectedPageIndex == 6) return;
+            SelectedPageIndex += j;
+        }
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -83,6 +109,7 @@ namespace MVVMTaste.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
 
