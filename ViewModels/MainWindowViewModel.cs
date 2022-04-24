@@ -17,6 +17,23 @@ namespace MVVMTaste.ViewModels
     {
         /*------------------------------------------------------------------------------*/
 
+        #region Массив разнородных данных и свойство выбранного объекта из этого массива
+        
+        /// <summary>Массив разнородных объектов</summary>
+        public object[] CompositeCollection { get; }
+
+        /// <summary>Выбранный объект</summary>
+        private object _SelectedCompositeValue;
+
+        /// <summary>Выбранный объект</summary>
+        public object SelectedCompositeValue
+        {
+            get => _SelectedCompositeValue;
+            set => Set(ref _SelectedCompositeValue, value);
+        }
+
+        #endregion
+
         #region Коллекция Групп
 
         public ObservableCollection<Group> Groups { get; }
@@ -110,7 +127,7 @@ namespace MVVMTaste.ViewModels
 
         #endregion
 
-        #region
+        #region ChangeTabIndexCommand
 
         public ICommand ChangeTabIndexCommand { get; }
         private bool CanChangeTabIndexCommandExecute(object d) => true;// _SelectedPageIndex >= 0;
@@ -156,7 +173,7 @@ namespace MVVMTaste.ViewModels
             #region Генерация тестовых данных для DataGrid
 
             var student_index = 1;
-            var students = Enumerable.Range(1, 10).Select(i => new Student 
+            var students = Enumerable.Range(1, 10).Select(i => new Student //Генерируется команда?
             {
                 Name = $"Name {student_index}",
                 Surname = $"Surname {student_index}",
@@ -172,6 +189,20 @@ namespace MVVMTaste.ViewModels
             });
 
             Groups = new ObservableCollection<Group>(groups);
+
+            #endregion
+
+            #region Заполнение массива разнородными данными
+
+            var data_list = new List<object>();
+
+            data_list.Add("Hello World!");
+            data_list.Add(5);
+            var group = Groups[1];
+            data_list.Add(group);
+            data_list.Add(group.Students.ToList()[0]);
+
+            CompositeCollection = data_list.ToArray();
 
             #endregion
         }
