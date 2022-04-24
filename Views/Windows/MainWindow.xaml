@@ -123,14 +123,14 @@
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Margin="0,3" Rows="1">
                                 <UniformGrid.Resources>
-                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                    <Style TargetType="Button">
                                         <Setter Property="Margin" Value="3,0"/>
                                         <Setter Property="Padding" Value="3,5"/>
                                         <Setter Property="Background" Value="White"/>
                                     </Style>
                                 </UniformGrid.Resources>
-                                <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command='{Binding CreateGroupCommand}'/>
-                                <Button Content="Удалить"  Style="{StaticResource ButtonStyle}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Content="Добавить" Command='{Binding CreateGroupCommand}'/>
+                                <Button Content="Удалить"  Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" 
                                  SelectedItem="{Binding SelectedGroup}"><!--SelectedIndex="0" (Свойство выбора объекта по индексу)-->
@@ -254,8 +254,20 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Red">
-                <Rectangle Fill="Red"/>
+            <TabItem Header="Кнопки">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <UniformGrid Rows="1">
+                        <Button Content="11111" Style="{StaticResource PrimaryBtn}"/>
+                        <Button Content="22222"/>
+                        <Button Content="33333" Style="{StaticResource DangerBtn}"/>
+                        <Button Content="44444"/>
+                        <ToggleButton Content="55555" Background="LightGray"/>
+                    </UniformGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="Green">
                 <Rectangle Fill="Green"/>
